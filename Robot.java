@@ -64,9 +64,9 @@ public class Robot extends TimedRobot {
 
   // SOLENOIDS
     if (joystick.getRawButton(3)) {
-      solenoid.set(Value.kReverse);;
+      solenoid.set(DoubleSolenoid.Value.kReverse);;
     } else if (joystick.getRawButton(4)) {
-      solenoid.set(Value.kForward);
+      solenoid.set(DoubleSolenoid.Value.kForward);
     }
 
   // COMPRESSOR ON/OFF
