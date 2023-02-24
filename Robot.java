@@ -1,9 +1,7 @@
 package frc.robot;
 
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
@@ -14,12 +12,10 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 
-
-
 public class Robot extends TimedRobot {
 
 
-// DRIVETRAIN
+  // DRIVETRAIN
   VictorSP left = new VictorSP(0);
   VictorSP right = new VictorSP(1);
   DifferentialDrive drive = new DifferentialDrive(left, right);
@@ -37,7 +33,6 @@ public class Robot extends TimedRobot {
   UsbCamera camera1;
   UsbCamera camera2;
   VideoSink server;
-
 
   @Override
   public void robotInit() {
@@ -63,54 +58,52 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {}
 
   @Override
-  public void teleopInit() {
-  
-  }
+  public void teleopInit() {}
 
   @Override
   public void teleopPeriodic() {
 
-    drive.arcadeDrive(-joystick.getY(), -joystick.getZ());
-
+      drive.arcadeDrive(joystick.getY(), joystick.getZ());
     
-  // CLAW
-    if (joystick.getRawButton(4)) {
-      claw.set(0.5);
-    } else {
-      claw.set(0);
-    }
-    
+   // drive.arcadeDrive(-joystick.getY(), joystick.getX());
 
+   // drive.arcadeDrive(-joystick.getY(), -joystick.getZ());
+    // CLAW V2
+      if (joystick.getRawButton(1)) {
+        claw.set(0.2);
+      } else if (joystick.getRawButton(2)) {
+        claw.set(-0.2); 
+      } else {
+        claw.set(0);
+      }      
   
-  // HORIZONTAL TRACK
-    if (joystick.getRawButton(7)) {
-      horizontal.set(0.5);
-    } else if (joystick.getRawButton(8)) {
-      horizontal.set(-0.5);
-    } else {
-      horizontal.set(0);
-    }
 
-  // VERTICAL TRACK
-    if (joystick.getRawButton(5)) {
-      vertical.set(0.5); 
-    } else if (joystick.getRawButton(3)) {
-      vertical.set(-0.5); 
-    } else {
-      vertical.set(0);
-    }
-
-
-
-  // 12% POWER
-    if (joystick.getRawButton(1)) {
-      left.set(0.12);
-      right.set(0.12);
-    } else if (joystick.getRawButton(2)) {
-      left.set(-0.12);
-      right.set(-0.12);
-    }
-    
+    // HORIZONTAL TRACK
+      if (joystick.getRawButton(6)) {
+        horizontal.set(0.5);
+      } else if (joystick.getRawButton(5)) {
+        horizontal.set(-0.5);
+      } else {
+        horizontal.set(0);
+      }
+  
+    // VERTICAL TRACK
+      if (joystick.getRawButton(4)) {
+        vertical.set(0.5); 
+      } else if (joystick.getRawButton(3)) {
+        vertical.set(-0.5); 
+      } else {
+        vertical.set(0);
+      }
+  
+    // 12% POWER
+      if (joystick.getRawButton(7)) {
+        left.set(0.12);
+        right.set(0.12);
+      } else if (joystick.getRawButton(8)) {
+        left.set(-0.12);
+        right.set(-0.12);
+      }
   }
 
   @Override
@@ -124,4 +117,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {}
+
+  @Override
+  public void simulationInit() {}
+
+  @Override
+  public void simulationPeriodic() {}
 }
